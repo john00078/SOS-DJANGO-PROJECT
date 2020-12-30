@@ -30,14 +30,8 @@ class BaseService(ABC):
         m = self.get(mid)
         m.delete()       
 
-    def find_by_unique_key(self, pk):
-        try:
-            m = self.get_model().objects.get( id = pk )
-            return m
-        except self.get_model().DoesNotExist :
-            return None
-
-
+    
+ 
 
     @abstractmethod
     def get_model(self):

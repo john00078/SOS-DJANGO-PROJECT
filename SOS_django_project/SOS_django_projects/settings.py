@@ -94,10 +94,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'rishikeshpatel1525@gmail.com'
-EMAIL_HOST_PASSWORD = 'Rishikesh@1998'
-# EMAIL_HOST_USER = 'mohitkarma18@gmail.com'
-# EMAIL_HOST_PASSWORD = '9424002913'
+EMAIL_HOST_USER = 'mohitkarma18@gmail.com'
+EMAIL_HOST_PASSWORD = '9424002913'
 
 
 
@@ -108,7 +106,7 @@ DATABASES = {
  'default': {
             'ENGINE': 'django.db.backends.mysql', 
             # 'ENGINE': 'dj_db_conn_pool.backends.mysql',
-            'NAME': 'patel_sos_project',
+            'NAME': 'vishwakarma_sos_project',
             'USER': 'root',
             'PASSWORD': 'root',
             'HOST': 'localhost',   

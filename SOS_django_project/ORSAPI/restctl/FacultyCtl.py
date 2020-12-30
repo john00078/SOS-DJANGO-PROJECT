@@ -8,14 +8,14 @@ from django.shortcuts import render
 from ORSAPI.utility.DataValidator import DataValidator
 from service.models import Faculty
 from service.forms import FacultyForm
-from service.service.AddFacultyService import AddFacultyService
-from rest_framework.parsers import JSONParser
-from service.Serializers import AddFacultySerializers
+from service.service.FacultyService import FacultyService
+
+
 from django.http.response import JsonResponse
 import json
 from django.core import serializers   
 
-class AddFacultyCtl(BaseCtl): 
+class FacultyCtl(BaseCtl): 
     
     def request_to_form(self, requestForm):
         self.form["id"] = requestForm["id"]
@@ -32,7 +32,7 @@ class AddFacultyCtl(BaseCtl):
         
 
     def get(self,request, params = {}):
-        service=AddFacultyService()
+        service=FacultyService()
         c=service.get(params["id"])
         res={}
         if(c!=None):
@@ -45,7 +45,7 @@ class AddFacultyCtl(BaseCtl):
         return JsonResponse({"data":res["data"]})
 
     def delete(self,request, params = {}):
-        service=AddFacultyService()
+        service=FacultyService()
         c=service.get(params["id"])
         res={}
         if(c!=None):
@@ -59,64 +59,31 @@ class AddFacultyCtl(BaseCtl):
         return JsonResponse({"data":res})
 
 
-    # def search(self,request, params = {}):
-    #     q = College.objects.filter()
-    #     json_request=json.loads(request.body)
-    #     if(json_request.get("collegeName")!=None ):
-    #         q= q.filter( collegeName = json_request.get("collegeName"))  
-    #     if(json_request.get("collegeName")!=None ):
-    #         q= q.filter( collegeName = json_request.get("collegeName"))
-        
-    #     res={}
-    #     data=[]
-    #     for x in q:
-    #         data.append(x.to_json())
-    #     if(q!=None):
-    #         res["data"]=data
-    #         res["error"]=False
-    #         res["message"]="Data is found"
-    #     else:
-    #         res["error"]=True
-    #         res["message"]="record not found"
-    #     return JsonResponse({"data":res})
+   
 
 
 
-
-    # def search(self,request, params = {}):
-        # json_request=json.loads(request.body)
-        # params["collegeName"]=json_request["collegeName"]
-        # params["collegeName"]=json_request["collegeName"]
-        # service=CollegeService()
-        # c=service.search(params)
-        # res={}
-        # data=[]
-        # for x in c:
-        #     data.append(x.to_json())
-        # if(c!=None):
-        #     res["data"]=data
-        #     res["error"]=False
-        #     res["message"]="Data is found"
-        # else:
-        #     res["error"]=True
-        #     res["message"]="record not found"
-        # return JsonResponse({"data":res})
+   
 
     def search(self,request, params = {}):
-            service=AddFacultyService()
-            c=service.search(params)
-            res={}
-            data=[]
-            for x in c:
-                data.append(x.to_json())
-            if(c!=None):
-                res["data"]=data
-                res["error"]=False
-                res["message"]="Data is found"
-            else:
-                res["error"]=True
-                res["message"]="record not found"
-            return JsonResponse({"data":res})
+        json_request=json.loads(request.body)
+        if(json_request):
+            params["collegeName"]=json_request.get("collegeName",None)
+            params["courseName"]=json_request.get("courseName",None)
+        service=FacultyService()
+        c=service.search(params)
+        res={}
+        data=[]
+        for x in c:
+            data.append(x.to_json())
+        if(c!=None):
+            res["data"]=data
+            res["error"]=False
+            res["message"]="Data is found"
+        else:
+            res["error"]=True
+            res["message"]="record not found"
+        return JsonResponse({"data":res})
 
 
 
@@ -146,7 +113,7 @@ class AddFacultyCtl(BaseCtl):
             res["message"]="Data is not saved"
         else:
             r=self.form_to_model(Faculty(), json_request)
-            service=AddFacultyService()
+            service=FacultyService()
             c=service.save(r)
             
             if(r!=None):
@@ -204,4 +171,4 @@ class AddFacultyCtl(BaseCtl):
 
     # Service of Role     
     def get_service(self):
-        return AddFacultyService()        
+        return FacultyService()        

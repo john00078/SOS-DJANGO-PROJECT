@@ -9,9 +9,9 @@ from django.shortcuts import render
 from ORSAPI.utility.DataValidator import DataValidator
 from service.forms import FacultyForm
 from service.models import  Faculty
-from service.service.AddFacultyService import AddFacultyService 
+from service.service.FacultyService import FacultyService 
 
-class AddFacultyListCtl(BaseCtl):
+class FacultyListCtl(BaseCtl):
 
     def request_to_form(self,requestForm):
         self.form["firstName"] = requestForm.get( "firstName", None)
@@ -24,7 +24,7 @@ class AddFacultyListCtl(BaseCtl):
         self.form["college_ID"] =  requestForm.get( "college_ID", None) 
         self.form["subject_ID"] =  requestForm.get( "subject_ID", None) 
         self.form["course_ID"] =  requestForm.get( "course_ID", None) 
-        # self.form["address"] =  requestForm.get( "address", None) 
+       
    
 
     def display(self,request,params={}):
@@ -43,6 +43,6 @@ class AddFacultyListCtl(BaseCtl):
 
     # Service of Role     
     def get_service(self):
-        return AddFacultyService()        
+        return FacultyService()        
 
 
